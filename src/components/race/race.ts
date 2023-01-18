@@ -1,7 +1,8 @@
-import './race.css'
+import './race.css';
 
-export class Race{
-  constructor(){
-    
+export class Race {
+  count: number;
+  constructor() {
+    this.count = 6;
   }
 }
