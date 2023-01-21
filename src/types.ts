@@ -3,6 +3,7 @@ enum Methods {
   POST = 'POST',
   PUT = 'PUT',
   PATCH = 'PATCH',
+  DELETE = 'DELETE',
 }
 
 type callbackType<T> = (data?: T) => void;

@@ -1,0 +1,15 @@
+.add-edit{
+  width: max-content;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 30px;
+}
+.add-edit>p{
+  display: flex;
+  flex-direction: column;
+  color: black;
+}

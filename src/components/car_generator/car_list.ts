@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export const carList = [
   {
     brand: 'Seat',
@@ -236,20 +237,7 @@ export const carList = [
   },
   {
     brand: 'Porsche',
-    models: [
-      '911 Carrera',
-      '911 Carrera Cabrio',
-      '911 Targa',
-      '911 Turbo',
-      '924',
-      '944',
-      '997',
-      'Boxster',
-      'Cayenne',
-      'Cayman',
-      'Macan',
-      'Panamera',
-    ],
+    models: ['911 Carrera', '911 Carrera Cabrio', '911 Targa', '911 Turbo', '924', '944', '997', 'Boxster', 'Cayenne', 'Cayman', 'Macan', 'Panamera'],
   },
   {
     brand: 'Honda',
@@ -602,18 +590,7 @@ export const carList = [
   },
   {
     brand: 'Saab',
-    models: [
-      '9-3',
-      '9-3 Cabriolet',
-      '9-3 Coupé',
-      '9-3 SportCombi',
-      '9-5',
-      '9-5 SportCombi',
-      '900',
-      '900 C',
-      '900 C Turbo',
-      '9000',
-    ],
+    models: ['9-3', '9-3 Cabriolet', '9-3 Coupé', '9-3 SportCombi', '9-5', '9-5 SportCombi', '900', '900 C', '900 C Turbo', '9000'],
   },
   {
     brand: 'Audi',
@@ -696,32 +673,11 @@ export const carList = [
   },
   {
     brand: 'Land Rover',
-    models: [
-      '109',
-      'Defender',
-      'Discovery',
-      'Discovery Sport',
-      'Freelander',
-      'Range Rover',
-      'Range Rover Evoque',
-      'Range Rover Sport',
-    ],
+    models: ['109', 'Defender', 'Discovery', 'Discovery Sport', 'Freelander', 'Range Rover', 'Range Rover Evoque', 'Range Rover Sport'],
   },
   {
     brand: 'Dodge',
-    models: [
-      'Avenger',
-      'Caliber',
-      'Challenger',
-      'Charger',
-      'Grand Caravan',
-      'Journey',
-      'Magnum',
-      'Nitro',
-      'RAM',
-      'Stealth',
-      'Viper',
-    ],
+    models: ['Avenger', 'Caliber', 'Challenger', 'Charger', 'Grand Caravan', 'Journey', 'Magnum', 'Nitro', 'RAM', 'Stealth', 'Viper'],
   },
   {
     brand: 'Chrysler',
@@ -935,21 +891,7 @@ export const carList = [
   },
   {
     brand: 'Daewoo',
-    models: [
-      'Espero',
-      'Kalos',
-      'Lacetti',
-      'Lanos',
-      'Leganza',
-      'Lublin',
-      'Matiz',
-      'Nexia',
-      'Nubira',
-      'Nubira kombi',
-      'Racer',
-      'Tacuma',
-      'Tico',
-    ],
+    models: ['Espero', 'Kalos', 'Lacetti', 'Lanos', 'Leganza', 'Lublin', 'Matiz', 'Nexia', 'Nubira', 'Nubira kombi', 'Racer', 'Tacuma', 'Tico'],
   },
   {
     brand: 'Fiat',

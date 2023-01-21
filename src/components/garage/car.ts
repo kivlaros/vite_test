@@ -21,7 +21,10 @@ export class Car extends Frame {
   }
   addEventHandler() {
     this.carDOM.addEventListener('click', () => {
-      console.log(this.car.id);
+      this.parent.removeActiveClass();
+      this.carDOM.classList.add('isActive');
+      this.parent.currentCar = this;
+      console.log(this.parent.currentCar);
     });
   }
 }

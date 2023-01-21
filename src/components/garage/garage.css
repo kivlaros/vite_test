@@ -1,3 +1,8 @@
+.garage{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .garge__pages__list{
   display: flex;
   gap: 10px;
@@ -9,4 +14,18 @@
 
 .garage__cars__list{
   min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.garage__form-container{
+  display: none;
+  position: absolute;
+  place-items: center;
+  z-index: 100;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px;
 }

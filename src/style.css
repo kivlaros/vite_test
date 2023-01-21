@@ -28,8 +28,9 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
+  justify-content: center;
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -47,4 +48,19 @@ li{
   margin: 0;
   padding: 0;
   list-style: none;
+}
+p{
+  padding: 0;
+  margin: 0;
+}
+.cover{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  background-color: rgba(0, 0, 0,0.5);
+  display: none;
+  cursor: pointer;
 }
