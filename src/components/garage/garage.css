@@ -2,9 +2,12 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 90vw;
+  margin-top: 30px;
 }
 .garge__pages__list{
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 

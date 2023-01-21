@@ -1,4 +1,4 @@
-import { Methods, callbackType, queryParams } from '../../types';
+import { Methods, callbackType, queryParams, errorCallback } from '../../types';
 
 class Loader {
   ulr: string;
@@ -28,6 +28,17 @@ class Loader {
       throw console.error(e);
     }
   }
+
+  async patch<T>(method: Methods, endpoint: string, options: queryParams | null, callback?: errorCallback) {
+    try {
+      const resp = await fetch(this.makeUrl(endpoint, options), { method });
+      const data: T = await resp.json();
+      console.log(data);
+    } catch {
+      if (callback) callback();
+    }
+  }
+
   async getData<T>(method: Methods, endpoint: string, options: queryParams | null): Promise<T> {
     try {
       const resp = await fetch(this.makeUrl(endpoint, options), { method });

@@ -71,7 +71,7 @@ function getHTML() {
       </p>
       <p>
         <label for="color">Color:</label>
-        <input class="input-color" type="text" name="color" id="color" required>
+        <input class="input-color" type="color" name="color" id="color" required>
       </p>
       <button class="add-edit__confirm" type="submit">confirm</button>
     </form>

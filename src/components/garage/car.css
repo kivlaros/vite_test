@@ -1,9 +1,29 @@
 .car{
   display: flex;
+  flex-direction: column;
   gap: 10px;
   cursor: pointer;
+  border-bottom: 1px dashed rgb(165, 165, 165);
 }
-
+.car__race{
+  display: flex;
+  justify-content: space-between;
+  font-size: 30px;
+}
+.car__info{
+  display: flex;
+  gap: 10px;
+}
+.car__info>i{
+  color: rgb(151, 151, 151);
+  font-size: 20px;
+}
+.car__info>i:hover{
+  color: rgb(94, 94, 94);
+}
+.car__race__flag{
+  margin-right: 80px;
+}
 .isActive{
   background-color: rgb(58, 58, 58);
   border: 1px solid rgb(170, 170, 170);

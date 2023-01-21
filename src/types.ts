@@ -7,6 +7,7 @@ enum Methods {
 }
 
 type callbackType<T> = (data?: T) => void;
+type errorCallback = () => void;
 
 type queryParams = {
   _page?: string;
@@ -21,4 +22,9 @@ type carType = {
   id?: string;
 };
 
-export { Methods, callbackType, queryParams, carType };
+type SpeedType = {
+  velocity: number;
+  distance: number;
+};
+
+export { Methods, callbackType, queryParams, carType, SpeedType, errorCallback };
