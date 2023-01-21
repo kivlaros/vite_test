@@ -1,0 +1,12 @@
+.garge__pages__list{
+  display: flex;
+  gap: 10px;
+}
+
+.garge__pages__list>li{
+  cursor: pointer;
+}
+
+.garage__cars__list{
+  min-height: 200px;
+}

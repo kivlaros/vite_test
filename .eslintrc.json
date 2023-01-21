@@ -16,7 +16,6 @@
         "browser": true,
         "node": true
     },
-    "files": [ "src/**/*.ts" ],
     "ignorePatterns": ["tsconfig.json", "./*.json"],
     "rules": {
         "no-debugger": "off",

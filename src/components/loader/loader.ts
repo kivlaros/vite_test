@@ -28,6 +28,15 @@ class Loader {
       throw console.error(e);
     }
   }
+  async getData<T>(method: Methods, endpoint: string, options: queryParams | null): Promise<T> {
+    try {
+      const resp = await fetch(this.makeUrl(endpoint, options), { method });
+      const data: T = await resp.json();
+      return data;
+    } catch (e) {
+      throw console.error(e);
+    }
+  }
   async upload<T>(method: Methods, endpoint: string, data: T, options: queryParams | null) {
     try {
       const resp = await fetch(this.makeUrl(endpoint, options), {

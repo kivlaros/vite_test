@@ -17,6 +17,7 @@ type queryParams = {
 type carType = {
   name: string;
   color: string;
+  id?: string;
 };
 
 export { Methods, callbackType, queryParams, carType };
