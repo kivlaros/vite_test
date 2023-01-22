@@ -1,3 +1,5 @@
+import { Car } from './components/garage/car';
+
 enum Methods {
   GET = 'GET',
   POST = 'POST',
@@ -27,4 +29,9 @@ type SpeedType = {
   distance: number;
 };
 
-export { Methods, callbackType, queryParams, carType, SpeedType, errorCallback };
+type FinishType = {
+  success: boolean;
+  instance?: Car;
+};
+
+export { Methods, callbackType, queryParams, carType, SpeedType, errorCallback, FinishType };

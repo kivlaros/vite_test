@@ -1,5 +1,5 @@
 import { Frame } from '../frame';
-import { carType, Methods, SpeedType } from '../../types';
+import { carType, Methods, SpeedType, FinishType } from '../../types';
 import './car.css';
 import { Garage } from './garage';
 import loader from '../loader/loader';
@@ -10,8 +10,10 @@ export class Car extends Frame {
   parent: Garage;
   startBtnDOM!: HTMLElement;
   toStartBtnDOM!: HTMLElement;
+  winnerDOM!: HTMLElement;
   carImgDOM!: HTMLElement;
   carAnimation: Animation | null = null;
+  isWinnerShow = true;
   constructor(selector: string, car: carType, parent: Garage) {
     super(selector);
     this.car = car;
@@ -29,6 +31,7 @@ export class Car extends Frame {
     this.startBtnDOM = this.carDOM.querySelector('.car__info__start')!;
     this.carImgDOM = this.carDOM.querySelector('.car__race__img')!;
     this.toStartBtnDOM = this.carDOM.querySelector('.car__info__to-start')!;
+    this.winnerDOM = this.carDOM.querySelector('.car__winner')!;
   }
   addEventHandler() {
     this.carDOM.addEventListener('click', () => {
@@ -40,12 +43,11 @@ export class Car extends Frame {
       this.startEventHandler();
     });
     this.toStartBtnDOM.addEventListener('click', async () => {
-      if (this.carAnimation) this.carAnimation.cancel();
-      this.startBtnDOM.style.pointerEvents = 'auto';
+      this.cancelAnimation();
     });
   }
-  async startEventHandler() {
-    this.startBtnDOM.style.pointerEvents = 'none';
+  async startEventHandler(): Promise<FinishType | undefined> {
+    this.startBtnDOM.classList.add('isBlocked');
     const data = (await loader.getData(Methods.PATCH, '/engine', {
       id: this.car.id,
       status: 'started',
@@ -53,15 +55,17 @@ export class Car extends Frame {
     this.animationRules(data.distance / data.velocity);
     console.log(data.distance / data.velocity);
     this.carAnimation?.play();
-    await loader.patch(
+    const res: FinishType | undefined = await loader.patch(
       Methods.PATCH,
       '/engine',
       {
         id: this.car.id,
         status: 'drive',
       },
-      () => this.stopCarAnimation()
+      () => this.carAnimation?.pause()
     );
+    res!.instance = this;
+    return res;
   }
   animationRules(time: number) {
     const carKeyframes = new KeyframeEffect(
@@ -73,14 +77,28 @@ export class Car extends Frame {
     );
     this.carAnimation = new Animation(carKeyframes);
   }
-  stopCarAnimation() {
-    this.carAnimation?.pause();
+  async cancelAnimation() {
+    if (this.carAnimation) this.carAnimation.cancel();
+    await loader.getData(Methods.PATCH, '/engine', {
+      id: this.car.id,
+      status: 'stopped',
+    });
+    this.startBtnDOM.classList.remove('isBlocked');
+  }
+  showWinner() {
+    if (this.isWinnerShow) {
+      this.winnerDOM.style.display = 'block';
+      setTimeout(() => {
+        this.winnerDOM.style.display = 'none';
+      }, 5000);
+    }
   }
 }
 
 function getHTML(car: carType) {
   return `
     <li class="car" id="${car.id}">
+      <p class="car__winner">Winner is ${car.name}</p>
       <div class="car__info">
         <i class="fa-solid fa-play car__info__start"></i>
         <i class="fa-solid fa-backward-step car__info__to-start"></i>

@@ -33,9 +33,10 @@ class Loader {
     try {
       const resp = await fetch(this.makeUrl(endpoint, options), { method });
       const data: T = await resp.json();
-      console.log(data);
+      return data;
     } catch {
       if (callback) callback();
+      throw console.error("Hey dude that's 500 error");
     }
   }
 

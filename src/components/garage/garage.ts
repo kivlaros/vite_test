@@ -1,6 +1,6 @@
 import { Frame } from '../frame';
 import loader from '../loader/loader';
-import { carType, Methods } from '../../types';
+import { carType, Methods, FinishType } from '../../types';
 import { getRandomCarsArr } from '../car_generator/car_generator';
 import { Car } from './car';
 import './garage.css';
@@ -9,7 +9,8 @@ import { AddEditCar } from './addEditCar';
 export class Garage extends Frame {
   carsListDOM!: HTMLElement;
   pagesListDOM!: HTMLElement;
-  colorsListDOM!: HTMLElement;
+  raceBtnDOM!: HTMLElement;
+  rebooteBtnDOM!: HTMLElement;
   addBtn!: HTMLElement;
   editBtn!: HTMLElement;
   deleteBtn!: HTMLElement;
@@ -28,7 +29,8 @@ export class Garage extends Frame {
   assignVariablesToSelectors() {
     this.carsListDOM = this.rootDOM.querySelector('.garage__cars__list')!;
     this.pagesListDOM = this.rootDOM.querySelector('.garge__pages__list')!;
-    this.colorsListDOM = this.rootDOM.querySelector('.garage__colors__list')!;
+    this.raceBtnDOM = this.rootDOM.querySelector('.garage__race__start')!;
+    this.rebooteBtnDOM = this.rootDOM.querySelector('.garage__race__reboote')!;
     this.add100DOM = this.rootDOM.querySelector('.garage__add100')!;
     this.addBtn = this.rootDOM.querySelector('.garage__current-car__add')!;
     this.deleteBtn = this.rootDOM.querySelector('.garage__current-car__delete')!;
@@ -54,6 +56,12 @@ export class Garage extends Frame {
     this.deleteBtn.addEventListener('click', () => {
       this.deleteCarHandler();
     });
+    this.raceBtnDOM.addEventListener('click', () => {
+      this.raceHandler();
+    });
+    this.rebooteBtnDOM.addEventListener('click', () => {
+      this.rebootHandler();
+    });
   }
   async asyncHandler() {
     await loader.load(Methods.GET, '/garage', null, (data) => this.renderPagesList(data as carType[]));
@@ -68,6 +76,8 @@ export class Garage extends Frame {
     }
   }
   renderCarsOnPage(data: carType[]) {
+    this.raceBtnDOM.style.pointerEvents = 'auto';
+    this.raceBtnDOM.classList.remove('disabled');
     this.carsArr = [];
     data.forEach((e, i) => {
       const car = new Car('cars', e, this);
@@ -125,15 +135,47 @@ export class Garage extends Frame {
       if (e.innerText == this.currentPage) e.style.color = 'rgb(5,170,236)';
     });
   }
+  raceHandler() {
+    this.rootDOM.classList.add('isBlocked');
+    this.raceBtnDOM.style.pointerEvents = 'none';
+    this.raceBtnDOM.classList.add('disabled');
+    const promiseArr: Promise<FinishType>[] = [];
+    this.carsArr.forEach((e) => {
+      promiseArr.push(
+        new Promise((res) => {
+          res(e.startEventHandler() as Promise<FinishType>);
+        })
+      );
+    });
+    Promise.any(promiseArr).then((value) => {
+      console.log(value);
+      value.instance?.showWinner();
+    });
+    Promise.allSettled(promiseArr).then(() => {
+      this.rootDOM.classList.remove('isBlocked');
+    });
+  }
+  rebootHandler() {
+    this.carsArr.forEach((e) => {
+      e.cancelAnimation();
+    });
+    this.raceBtnDOM.style.pointerEvents = 'auto';
+    this.raceBtnDOM.classList.remove('disabled');
+  }
 }
 
 function getHTML() {
   return `
     <div class="garage__form-container" id="form-container"></div>
+    <button class="garage__add100 btn-style">add100</button>
     <div class="garage__current-car">
-      <button class="garage__current-car__add">Add</button>
-      <button class="garage__current-car__delete">delete</button>
-      <button class="garage__current-car__edit">Edit</button>
+      <button class="garage__current-car__add btn-style">Add</button>
+      <button class="garage__current-car__delete btn-style">Delete</button>
+      <button class="garage__current-car__edit btn-style">Edit</button>
+    </div>
+    <div class="garage__race-btn">
+      <button class="garage__race__start btn-style">Race</button>
+      <button class="garage__race__reboote btn-style">Reboote</button>
     </div>
     <div class="garage__cars">
       <ul class="garage__cars__list" id="cars">
@@ -145,11 +187,5 @@ function getHTML() {
 
       </ul>
     </div>
-    <div class="garage__colors">
-      <ul class="garage__colors__list">
-
-      </ul>
-    </div>
-    <button class="garage__add100">add100</button>
   `;
 }
