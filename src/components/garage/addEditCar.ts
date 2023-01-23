@@ -45,9 +45,13 @@ export class AddEditCar extends Frame {
     });
     this.confirmBtnDOM.addEventListener('click', (e) => {
       e.preventDefault();
-      this.cofirmBtnHandler();
-      this.cover.style.display = 'none';
-      this.destroy();
+      if (this.inputModelDOM.value.length > 3) {
+        this.cofirmBtnHandler();
+        this.cover.style.display = 'none';
+        this.destroy();
+      } else {
+        this.inputModelDOM.classList.add('not-valide');
+      }
     });
   }
   async cofirmBtnHandler() {
@@ -69,7 +73,8 @@ function getHTML() {
     <form class="add-edit" action="" method="post">
       <p>
         <label for="model">Model:</label>
-        <input class="input-model" type="text" name="model" id="model" required>
+        <input class="input-model" type="text" name="model" id="model" minlength="3" required>
+        <p class="add-edit__message">enter more than 3 characters</p>
       </p>
       <p>
         <label for="color">Color:</label>
