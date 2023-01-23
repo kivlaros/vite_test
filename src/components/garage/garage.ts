@@ -157,7 +157,7 @@ export class Garage extends Frame {
     this.carsArr.forEach((e) => {
       promiseArr.push(
         new Promise((res) => {
-          res(e.startEventHandler() as Promise<FinishType>);
+          res(e.startEventHandler(true) as Promise<FinishType>);
         })
       );
     });

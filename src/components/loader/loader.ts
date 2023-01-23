@@ -34,7 +34,7 @@ class Loader {
       return data;
     } catch {
       if (callback) callback();
-      throw console.error("Hey dude that's 500 error");
+      return undefined;
     }
   }
 

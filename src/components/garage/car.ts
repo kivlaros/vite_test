@@ -80,7 +80,7 @@ export class Car extends Frame {
       //this.parent.rebooteBtnDOM.classList.remove('disabled');
     }
   }
-  async startEventHandler(): Promise<FinishType | undefined> {
+  async startEventHandler(isRace = false): Promise<FinishType | undefined> {
     this.inRace = true;
     this.blockButtons();
     const data = (await loader.getData(Methods.PATCH, '/engine', {
@@ -100,8 +100,14 @@ export class Car extends Frame {
       },
       () => this.carAnimation?.pause()
     );
-    res!.instance = this;
-    res!.time = Math.round(time / 10) / 100;
+    try {
+      res!.instance = this;
+      res!.time = Math.round(time / 10) / 100;
+    } catch {
+      if (isRace) {
+        throw new Error('ошибка');
+      }
+    }
     return res;
   }
   animationRules(time: number) {
