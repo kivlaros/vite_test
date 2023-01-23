@@ -19,15 +19,18 @@
   display: flex;
   gap: 5px;
 }
+
 .winners__pages>li{
   cursor: pointer;
 }
+
 .winners__item{
   display: flex;
 }
 .winners__item>p{
   border: 1px solid rgb(58, 58, 58);
   width: 50px;
+  padding: 3px 5px;
 }
 .winners__item>p>i{
   cursor: pointer;
