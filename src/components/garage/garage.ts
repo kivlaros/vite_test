@@ -71,6 +71,7 @@ export class Garage extends Frame {
     await loader.load(Methods.GET, '/garage', null, (data) => this.renderPagesList(data as carType[]));
     await this.pagesListHandler();
     this.coloredCurrentPage();
+    this.renderCurrentCar();
   }
   renderPagesList(data: carType[]) {
     this.pagesListDOM.innerHTML = '';
@@ -92,6 +93,7 @@ export class Garage extends Frame {
       if (i == 0) {
         car.selectDOM.classList.add('isActive');
         this.currentCar = car;
+        this.renderCurrentCar();
       }
     });
   }
@@ -179,12 +181,21 @@ export class Garage extends Frame {
   getAnyInRace(): boolean {
     return this.carsArr.some((e) => e.inRace);
   }
+  renderCurrentCar() {
+    const currentCarDOM = document.querySelector('.current-car') as HTMLElement;
+    currentCarDOM.innerHTML = `Current car: <span class="current-car__img">
+      <i class="fa-solid fa-car-side" style="color:${this.currentCar?.car.color}"></i> ${this.currentCar?.car.name}
+    </span>`;
+  }
 }
 
 function getHTML() {
   return `
     <div class="garage__form-container" id="form-container"></div>
-    <button class="garage__add100 btn-style">Add100</button>
+    <div class="add100-container">
+      <p class="current-car">Current car:</p>
+      <button class="garage__add100 btn-style">Add100</button>
+    </div>
     <div class="garage__current-car">
       <button class="garage__current-car__add btn-style">Add</button>
       <button class="garage__current-car__delete btn-style">Delete</button>

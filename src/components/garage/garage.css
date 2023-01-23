@@ -63,5 +63,14 @@
 
 .garage__add100{
   width: 150px;
-  align-self: flex-end;
+}
+.add100-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.current-car{
+  color: #7c7c7c;
+  font-size: 20px;
 }

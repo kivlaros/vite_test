@@ -64,6 +64,7 @@ export class Car extends Frame {
       this.parent.removeActiveClass();
       this.selectDOM.classList.add('isActive');
       this.parent.currentCar = this;
+      this.parent.renderCurrentCar();
     });
   }
   blockButtons() {
