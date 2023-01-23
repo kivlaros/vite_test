@@ -165,9 +165,9 @@ export class Garage extends Frame {
       value.instance?.winHandler(value.time);
     });
     Promise.allSettled(promiseArr).then(() => {
-      this.rootDOM.classList.remove('isBlocked');
       this.app.winners.getWinnersPages();
       this.app.winners.renderWinnersPage();
+      this.rootDOM.classList.remove('isBlocked');
       this.rebooteBtnDOM.classList.remove('disabled');
     });
   }
@@ -175,8 +175,10 @@ export class Garage extends Frame {
     this.carsArr.forEach((e) => {
       e.cancelAnimation();
     });
-    this.raceBtnDOM.style.pointerEvents = 'auto';
-    this.raceBtnDOM.classList.remove('disabled');
+    setTimeout(() => {
+      this.raceBtnDOM.style.pointerEvents = 'auto';
+      this.raceBtnDOM.classList.remove('disabled');
+    }, 1300);
   }
   getAnyInRace(): boolean {
     return this.carsArr.some((e) => e.inRace);

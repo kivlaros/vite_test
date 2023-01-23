@@ -115,11 +115,11 @@ function getHTML() {
 function getHeadHTML() {
   return `
     <li class="winners__item">
-        <p class="winners__item__id sort-id">ID <i class="fa-solid fa-caret-down"></i></p>
-        <p class="winners__item__car">Car</p>
-        <p class="winners__item__model">Model</i></p>
-        <p class="winners__item__wins sort-wins">Wins <i class="fa-solid fa-caret-down"></i></p>
-        <p class="winners__item__time sort-time">Time <i class="fa-solid fa-caret-down"></i></p>
+        <p class="winners__item__id sort-id">id <i class="fa-solid fa-caret-down"></i></p>
+        <p class="winners__item__car">car</p>
+        <p class="winners__item__model">model</i></p>
+        <p class="winners__item__wins sort-wins">wins <i class="fa-solid fa-caret-down"></i></p>
+        <p class="winners__item__time sort-time">time <i class="fa-solid fa-caret-down"></i></p>
     </li>
   `;
 }
