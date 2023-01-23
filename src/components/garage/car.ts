@@ -140,6 +140,8 @@ export class Car extends Frame {
     }
   }
   winHandler(time: number) {
+    const winnerMessageDOM = this.carDOM.querySelector('.car__winner') as HTMLElement;
+    winnerMessageDOM.innerText = `Winner is ${this.car.name}[${time}s]`;
     this.showWinner();
     this.sendWinnerToServer(time);
   }
