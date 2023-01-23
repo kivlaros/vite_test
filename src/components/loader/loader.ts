@@ -1,4 +1,4 @@
-import { Methods, callbackType, queryParams, errorCallback } from '../../types';
+import { Methods, callbackType, queryParams, errorCallback, WinnerOpitons } from '../../types';
 
 class Loader {
   ulr: string;
@@ -29,7 +29,7 @@ class Loader {
     }
   }
 
-  async patch<T>(method: Methods, endpoint: string, options: queryParams | null, callback?: errorCallback) {
+  async patch<T>(method: Methods, endpoint: string, options: queryParams | WinnerOpitons | null, callback?: errorCallback) {
     try {
       const resp = await fetch(this.makeUrl(endpoint, options), { method });
       const data: T = await resp.json();

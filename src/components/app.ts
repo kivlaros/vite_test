@@ -6,7 +6,7 @@ export class App {
   winners: Winners;
   constructor() {
     this.winners = new Winners();
-    this.garage = new Garage();
+    this.garage = new Garage(this);
     console.log('test app');
   }
 }

@@ -1,10 +1,11 @@
 import { Frame } from '../frame';
 import loader from '../loader/loader';
-import { carType, Methods, FinishType } from '../../types';
+import { carType, Methods, FinishType, WinnerType } from '../../types';
 import { getRandomCarsArr } from '../car_generator/car_generator';
 import { Car } from './car';
 import './garage.css';
 import { AddEditCar } from './addEditCar';
+import { App } from '../app';
 
 export class Garage extends Frame {
   carsListDOM!: HTMLElement;
@@ -19,8 +20,10 @@ export class Garage extends Frame {
   currentPage = '1';
   addEdit: AddEditCar | null = null;
   carsArr: Car[] = [];
-  constructor() {
+  app: App;
+  constructor(app: App) {
     super('garage');
+    this.app = app;
     this.render(getHTML());
     this.assignVariablesToSelectors();
     this.addEventsHandlers();
@@ -114,6 +117,10 @@ export class Garage extends Frame {
   }
   async deleteCarHandler() {
     await loader.load(Methods.DELETE, `/garage/${this.currentCar?.car.id}`, null);
+    const data: WinnerType[] = await loader.getData(Methods.GET, '/winners', null);
+    if (data.some((e) => e.id == Number(this.currentCar?.car.id))) {
+      await loader.load(Methods.DELETE, `/winners/${this.currentCar?.car.id}`, null);
+    }
     this.asyncHandler();
   }
   async add100BtnHandler() {
@@ -153,6 +160,8 @@ export class Garage extends Frame {
     });
     Promise.allSettled(promiseArr).then(() => {
       this.rootDOM.classList.remove('isBlocked');
+      this.app.winners.getWinnersPages();
+      this.app.winners.renderWinnersPage();
     });
   }
   rebootHandler() {

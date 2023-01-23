@@ -41,4 +41,14 @@ type WinnerType = {
   time: number;
 };
 
-export { Methods, callbackType, queryParams, carType, SpeedType, errorCallback, FinishType, WinnerType };
+type WinnerOpitons = {
+  _page: string;
+
+  _limit: string;
+
+  _sort: 'id' | 'wins' | 'time';
+
+  _order: 'ASC' | 'DESC';
+};
+
+export { Methods, callbackType, queryParams, carType, SpeedType, errorCallback, FinishType, WinnerType, WinnerOpitons };
