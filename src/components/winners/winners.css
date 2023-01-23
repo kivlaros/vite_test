@@ -1,10 +1,13 @@
 .winners{
-  display: flex;
+  display: none;
   justify-content: center;
 }
 .winner-container>h3{
   width: max-content;
-  font-size: 40px;
+  font-size: 35px;
+  background-color: rgb(112, 112, 112);
+  padding: 15px;
+  color: #242424;
 }
 .winner-container{
   width: max-content;

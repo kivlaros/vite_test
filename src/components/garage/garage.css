@@ -13,8 +13,14 @@
 
 .garge__pages__list>li{
   cursor: pointer;
+  color: #7c7c7c;
 }
-
+.garage__cars{
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
 .garage__cars__list{
   min-height: 200px;
   display: flex;

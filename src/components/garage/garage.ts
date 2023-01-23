@@ -86,7 +86,7 @@ export class Garage extends Frame {
       const car = new Car('cars', e, this);
       this.carsArr.push(car);
       if (i == 0) {
-        car.carDOM.classList.add('isActive');
+        car.selectDOM.classList.add('isActive');
         this.currentCar = car;
       }
     });
@@ -131,14 +131,14 @@ export class Garage extends Frame {
   }
   removeActiveClass() {
     this.carsArr.forEach((e) => {
-      e.carDOM.classList.remove('isActive');
+      e.selectDOM.classList.remove('isActive');
     });
   }
   coloredCurrentPage() {
     const pagesDOM = this.pagesListDOM.children;
     const pagesArr = Array.from(pagesDOM) as HTMLElement[];
     pagesArr.forEach((e) => {
-      e.style.color = '#fff';
+      e.style.color = '#7c7c7c';
       if (e.innerText == this.currentPage) e.style.color = 'rgb(5,170,236)';
     });
   }
@@ -146,6 +146,7 @@ export class Garage extends Frame {
     this.rootDOM.classList.add('isBlocked');
     this.raceBtnDOM.style.pointerEvents = 'none';
     this.raceBtnDOM.classList.add('disabled');
+    this.rebooteBtnDOM.classList.add('disabled');
     const promiseArr: Promise<FinishType>[] = [];
     this.carsArr.forEach((e) => {
       promiseArr.push(
@@ -162,6 +163,7 @@ export class Garage extends Frame {
       this.rootDOM.classList.remove('isBlocked');
       this.app.winners.getWinnersPages();
       this.app.winners.renderWinnersPage();
+      this.rebooteBtnDOM.classList.remove('disabled');
     });
   }
   rebootHandler() {

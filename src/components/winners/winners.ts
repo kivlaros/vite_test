@@ -90,7 +90,7 @@ export class Winners extends Frame {
     const pagesDOM = this.pagesDOM.children;
     const pagesArr = Array.from(pagesDOM) as HTMLElement[];
     pagesArr.forEach((e) => {
-      e.style.color = '#fff';
+      e.style.color = '#7c7c7c';
       if (e.innerText == this.winnerOptions._page) e.style.color = 'rgb(5,170,236)';
     });
   }

@@ -12,6 +12,7 @@ export class Car extends Frame {
   toStartBtnDOM!: HTMLElement;
   winnerDOM!: HTMLElement;
   carImgDOM!: HTMLElement;
+  selectDOM!: HTMLElement;
   carAnimation: Animation | null = null;
   isWinnerShow = true;
   currentWins = 0;
@@ -49,22 +50,24 @@ export class Car extends Frame {
     this.carImgDOM = this.carDOM.querySelector('.car__race__img')!;
     this.toStartBtnDOM = this.carDOM.querySelector('.car__info__to-start')!;
     this.winnerDOM = this.carDOM.querySelector('.car__winner')!;
+    this.selectDOM = this.carDOM.querySelector('.car__info__select')!;
   }
   addEventHandler() {
-    this.carDOM.addEventListener('click', () => {
-      this.parent.removeActiveClass();
-      this.carDOM.classList.add('isActive');
-      this.parent.currentCar = this;
-    });
     this.startBtnDOM.addEventListener('click', () => {
       this.startEventHandler();
     });
     this.toStartBtnDOM.addEventListener('click', async () => {
       this.cancelAnimation();
     });
+    this.selectDOM.addEventListener('click', async () => {
+      this.parent.removeActiveClass();
+      this.selectDOM.classList.add('isActive');
+      this.parent.currentCar = this;
+    });
   }
   async startEventHandler(): Promise<FinishType | undefined> {
     this.startBtnDOM.classList.add('isBlocked');
+    this.startBtnDOM.classList.add('disabled-color');
     const data = (await loader.getData(Methods.PATCH, '/engine', {
       id: this.car.id,
       status: 'started',
@@ -104,6 +107,7 @@ export class Car extends Frame {
       status: 'stopped',
     });
     this.startBtnDOM.classList.remove('isBlocked');
+    this.startBtnDOM.classList.remove('disabled-color');
   }
   showWinner() {
     if (this.isWinnerShow) {
@@ -137,6 +141,7 @@ function getHTML(car: carType) {
     <li class="car" id="${car.id}">
       <p class="car__winner">Winner is ${car.name}</p>
       <div class="car__info">
+        <i class="fa-solid fa-circle-check car__info__select"></i>
         <i class="fa-solid fa-play car__info__start"></i>
         <i class="fa-solid fa-backward-step car__info__to-start"></i>
         <span class="car__info__model">${car.name}</span>

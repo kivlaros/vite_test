@@ -27,7 +27,6 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
   justify-content: center;
   min-height: 100vh;
   box-sizing: border-box;
@@ -86,5 +85,36 @@ p{
 }
 
 .disabled{
-  text-decoration: line-through;
+  background-color: #242424;
+  color: #a35f5f;
+  font-weight: bold;
+}
+.disabled-color{
+  color: #a35f5f !important;
+}
+#app{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.app__page{
+  display: flex;
+  margin-top: 20px;
+  font-size: 40px;
+  font-weight: bold;
+}
+.app__page__race{
+  border-right: 2px solid rgb(99, 99, 99);
+}
+
+.app__page>div{
+  padding: 10px 30px;
+  cursor: pointer;
+}
+
+.app__page>div:hover{
+  color: #646464;
 }
