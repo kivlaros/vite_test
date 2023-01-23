@@ -14,7 +14,6 @@ class Loader {
         .join('&');
       urlArr.push('?', optionsStr);
     }
-    console.log(urlArr.join(''));
     return urlArr.join('');
   }
 
@@ -22,7 +21,6 @@ class Loader {
     try {
       const resp = await fetch(this.makeUrl(endpoint, options), { method });
       const data: T = await resp.json();
-      console.log(data);
       if (callback) callback(data);
     } catch (e) {
       throw console.error(e);
@@ -51,15 +49,14 @@ class Loader {
   }
   async upload<T>(method: Methods, endpoint: string, data: T, options: queryParams | null) {
     try {
-      const resp = await fetch(this.makeUrl(endpoint, options), {
+      await fetch(this.makeUrl(endpoint, options), {
         method,
         body: JSON.stringify(data),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },
       });
-      const sendData = await resp.json();
-      console.log(sendData);
+      //const sendData = await resp.json();
     } catch (e) {
       throw console.error(e);
     }

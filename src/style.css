@@ -73,8 +73,8 @@ p{
   height: 30px;
   padding: 0 20px;
   background-color: rgb(69, 74, 90);
-  color: rgb(228, 228, 228);
-  border: 1px solid rgb(214, 214, 214);
+  color: rgb(206, 206, 206);
+  border: 1px solid rgb(168, 168, 168);
   cursor: pointer;
   border-radius: 3px;
   font-size: 16px;
@@ -88,6 +88,7 @@ p{
   background-color: #242424;
   color: #a35f5f;
   font-weight: bold;
+  pointer-events: none !important;
 }
 .disabled-color{
   color: #a35f5f !important;
@@ -98,6 +99,7 @@ p{
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  max-width: 1400px;
 }
 
 .app__page{

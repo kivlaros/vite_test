@@ -2,8 +2,10 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 90vw;
-  margin-top: 30px;
+  width: 95%;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 2px solid rgb(88, 88, 88);
 }
 .garge__pages__list{
   display: flex;
@@ -38,4 +40,28 @@
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 15px;
+}
+.preload{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 30px;
+}
+
+.total-count{
+  font-size: 25px;
+  color: #7c7c7c !important;
+  font-weight: bold;
+}
+
+.garage__race-btn{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.garage__add100{
+  width: 150px;
+  align-self: flex-end;
 }

@@ -21,6 +21,7 @@ export class Garage extends Frame {
   addEdit: AddEditCar | null = null;
   carsArr: Car[] = [];
   app: App;
+  totalCount = 0;
   constructor(app: App) {
     super('garage');
     this.app = app;
@@ -73,6 +74,9 @@ export class Garage extends Frame {
   }
   renderPagesList(data: carType[]) {
     this.pagesListDOM.innerHTML = '';
+    this.totalCount = data.length;
+    const countDOM = document.querySelector('.total-count') as HTMLElement;
+    countDOM.innerText = `Total count: ${this.totalCount.toString()}`;
     const pageCount = Math.ceil(data.length / 7);
     for (let i = 0; i < pageCount; i++) {
       this.pagesListDOM.insertAdjacentHTML('beforeend', `<li>${i + 1}</li>`);
@@ -126,7 +130,7 @@ export class Garage extends Frame {
   async add100BtnHandler() {
     getRandomCarsArr(100).forEach(async (e, i) => {
       await loader.upload(Methods.POST, '/garage', e, null);
-      this.carsListDOM.innerHTML = `<span>${i}</span>`;
+      this.carsListDOM.innerHTML = `<span class="preload">${i}%</span>`;
     });
   }
   removeActiveClass() {
@@ -156,7 +160,6 @@ export class Garage extends Frame {
       );
     });
     Promise.any(promiseArr).then((value) => {
-      console.log(value);
       value.instance?.winHandler(value.time);
     });
     Promise.allSettled(promiseArr).then(() => {
@@ -173,12 +176,15 @@ export class Garage extends Frame {
     this.raceBtnDOM.style.pointerEvents = 'auto';
     this.raceBtnDOM.classList.remove('disabled');
   }
+  getAnyInRace(): boolean {
+    return this.carsArr.some((e) => e.inRace);
+  }
 }
 
 function getHTML() {
   return `
     <div class="garage__form-container" id="form-container"></div>
-    <button class="garage__add100 btn-style">add100</button>
+    <button class="garage__add100 btn-style">Add100</button>
     <div class="garage__current-car">
       <button class="garage__current-car__add btn-style">Add</button>
       <button class="garage__current-car__delete btn-style">Delete</button>
@@ -187,6 +193,7 @@ function getHTML() {
     <div class="garage__race-btn">
       <button class="garage__race__start btn-style">Race</button>
       <button class="garage__race__reboote btn-style">Reboote</button>
+      <span class="total-count"></span>
     </div>
     <div class="garage__cars">
       <ul class="garage__cars__list" id="cars">

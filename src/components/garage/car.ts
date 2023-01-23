@@ -17,6 +17,7 @@ export class Car extends Frame {
   isWinnerShow = true;
   currentWins = 0;
   winnerOptions: WinnerType;
+  inRace = false;
   constructor(selector: string, car: carType, parent: Garage) {
     super(selector);
     this.car = car;
@@ -65,9 +66,22 @@ export class Car extends Frame {
       this.parent.currentCar = this;
     });
   }
-  async startEventHandler(): Promise<FinishType | undefined> {
+  blockButtons() {
     this.startBtnDOM.classList.add('isBlocked');
     this.startBtnDOM.classList.add('disabled-color');
+    this.parent.raceBtnDOM.classList.add('disabled');
+    //this.parent.rebooteBtnDOM.classList.add('disabled');
+  }
+  unBlockButtons() {
+    if (!this.parent.getAnyInRace()) {
+      this.parent.raceBtnDOM.classList.remove('disabled');
+      this.parent.raceBtnDOM.style.pointerEvents = 'auto';
+      //this.parent.rebooteBtnDOM.classList.remove('disabled');
+    }
+  }
+  async startEventHandler(): Promise<FinishType | undefined> {
+    this.inRace = true;
+    this.blockButtons();
     const data = (await loader.getData(Methods.PATCH, '/engine', {
       id: this.car.id,
       status: 'started',
@@ -75,7 +89,6 @@ export class Car extends Frame {
     const time = data.distance / data.velocity;
     const timeK = 1.1;
     this.animationRules(time * timeK);
-    console.log(time);
     this.carAnimation?.play();
     const res: FinishType | undefined = await loader.patch(
       Methods.PATCH,
@@ -106,8 +119,10 @@ export class Car extends Frame {
       id: this.car.id,
       status: 'stopped',
     });
+    this.inRace = false;
     this.startBtnDOM.classList.remove('isBlocked');
     this.startBtnDOM.classList.remove('disabled-color');
+    this.unBlockButtons();
   }
   showWinner() {
     if (this.isWinnerShow) {
@@ -127,7 +142,6 @@ export class Car extends Frame {
     }
     if (!this.winnerOptions.wins) {
       this.winnerOptions.wins += 1;
-      console.log(this.winnerOptions, 'на сервак');
       loader.upload(Methods.POST, '/winners', this.winnerOptions, null);
     } else {
       this.winnerOptions.wins += 1;

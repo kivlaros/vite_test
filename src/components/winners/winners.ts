@@ -71,6 +71,9 @@ export class Winners extends Frame {
   }
   renderPages(data: WinnerType[]) {
     this.pagesDOM.innerHTML = '';
+    const count = data.length;
+    const countDOM = document.querySelector('.total-count-winners')! as HTMLElement;
+    countDOM.innerText = `Total count: ${count.toString()}`;
     const pagesCount = Math.ceil(data.length / 7);
     for (let i = 0; i < pagesCount; i++) {
       this.pagesDOM.insertAdjacentHTML('beforeend', `<li>${i + 1}</li>`);
@@ -100,6 +103,7 @@ function getHTML() {
   return `
     <div class="winner-container">
       <h3>Winner Table</h3>
+      <span class="total-count-winners"></span>
       ${getHeadHTML()}
       <ul class="winners__list">
       </ul>

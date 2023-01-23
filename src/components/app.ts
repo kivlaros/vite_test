@@ -39,7 +39,7 @@ export class App extends Frame {
 function getHTML() {
   return `
     <div class="app__page">
-      <div class="app__page__race">Race</div>
+      <div class="app__page__race">Garage</div>
       <div class="app__page__winners">Winners</div>
     </div>
     <div class="cover" id="cover"></div>
