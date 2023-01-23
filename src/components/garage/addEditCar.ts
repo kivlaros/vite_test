@@ -46,6 +46,8 @@ export class AddEditCar extends Frame {
     this.confirmBtnDOM.addEventListener('click', (e) => {
       e.preventDefault();
       this.cofirmBtnHandler();
+      this.cover.style.display = 'none';
+      this.destroy();
     });
   }
   async cofirmBtnHandler() {
