@@ -1,11 +1,11 @@
-import { Race } from './race/race';
 import { Garage } from './garage/garage';
+import { Winners } from './winners/winners';
 
 export class App {
-  race: Race;
   garage: Garage;
+  winners: Winners;
   constructor() {
-    this.race = new Race();
+    this.winners = new Winners();
     this.garage = new Garage();
     console.log('test app');
   }

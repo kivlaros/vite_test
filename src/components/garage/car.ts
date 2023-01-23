@@ -1,5 +1,5 @@
 import { Frame } from '../frame';
-import { carType, Methods, SpeedType, FinishType } from '../../types';
+import { carType, Methods, SpeedType, FinishType, WinnerType } from '../../types';
 import './car.css';
 import { Garage } from './garage';
 import loader from '../loader/loader';
@@ -14,17 +14,34 @@ export class Car extends Frame {
   carImgDOM!: HTMLElement;
   carAnimation: Animation | null = null;
   isWinnerShow = true;
+  currentWins = 0;
+  winnerOptions: WinnerType;
   constructor(selector: string, car: carType, parent: Garage) {
     super(selector);
     this.car = car;
     this.parent = parent;
+    this.winnerOptions = {
+      id: Number(this.car.id),
+      wins: 0,
+      time: 0,
+    };
     this.render(getHTML(this.car));
     this.assignVariablesToSelectors();
     this.coloredCar();
     this.addEventHandler();
+    this.checkWinnerOnServ();
   }
   coloredCar() {
     this.carDOM.style.color = this.car.color;
+  }
+  setWinnerOpions(data: WinnerType) {
+    this.winnerOptions.time = data.time;
+    this.winnerOptions.wins = data.wins;
+  }
+  async checkWinnerOnServ() {
+    const data: WinnerType[] = await loader.getData(Methods.GET, '/winners', null);
+    if (data.some((e) => e.id == Number(this.car.id)))
+      loader.load(Methods.GET, `/winners/${this.car.id}`, null, (data) => this.setWinnerOpions(data as WinnerType));
   }
   assignVariablesToSelectors() {
     if (this.car.id) this.carDOM = document.getElementById(this.car.id)!;
@@ -52,8 +69,10 @@ export class Car extends Frame {
       id: this.car.id,
       status: 'started',
     })) as SpeedType;
-    this.animationRules(data.distance / data.velocity);
-    console.log(data.distance / data.velocity);
+    const time = data.distance / data.velocity;
+    const timeK = 1.1;
+    this.animationRules(time * timeK);
+    console.log(time);
     this.carAnimation?.play();
     const res: FinishType | undefined = await loader.patch(
       Methods.PATCH,
@@ -65,6 +84,7 @@ export class Car extends Frame {
       () => this.carAnimation?.pause()
     );
     res!.instance = this;
+    res!.time = Math.round(time / 10) / 100;
     return res;
   }
   animationRules(time: number) {
@@ -91,6 +111,23 @@ export class Car extends Frame {
       setTimeout(() => {
         this.winnerDOM.style.display = 'none';
       }, 5000);
+    }
+  }
+  winHandler(time: number) {
+    this.showWinner();
+    this.sendWinnerToServer(time);
+  }
+  sendWinnerToServer(time: number) {
+    if (!this.winnerOptions.time || this.winnerOptions.time > time) {
+      this.winnerOptions.time = time;
+    }
+    if (!this.winnerOptions.wins) {
+      this.winnerOptions.wins += 1;
+      console.log(this.winnerOptions, 'на сервак');
+      loader.upload(Methods.POST, '/winners', this.winnerOptions, null);
+    } else {
+      this.winnerOptions.wins += 1;
+      loader.upload(Methods.PUT, `/winners/${this.car.id}`, this.winnerOptions, null);
     }
   }
 }

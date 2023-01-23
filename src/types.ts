@@ -31,7 +31,14 @@ type SpeedType = {
 
 type FinishType = {
   success: boolean;
+  time: number;
   instance?: Car;
 };
 
-export { Methods, callbackType, queryParams, carType, SpeedType, errorCallback, FinishType };
+type WinnerType = {
+  id: number;
+  wins: number;
+  time: number;
+};
+
+export { Methods, callbackType, queryParams, carType, SpeedType, errorCallback, FinishType, WinnerType };

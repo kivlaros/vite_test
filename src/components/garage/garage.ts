@@ -149,7 +149,7 @@ export class Garage extends Frame {
     });
     Promise.any(promiseArr).then((value) => {
       console.log(value);
-      value.instance?.showWinner();
+      value.instance?.winHandler(value.time);
     });
     Promise.allSettled(promiseArr).then(() => {
       this.rootDOM.classList.remove('isBlocked');
