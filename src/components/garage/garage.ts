@@ -175,10 +175,10 @@ export class Garage extends Frame {
     this.carsArr.forEach((e) => {
       e.cancelAnimation();
     });
-    setTimeout(() => {
-      this.raceBtnDOM.style.pointerEvents = 'auto';
-      this.raceBtnDOM.classList.remove('disabled');
-    }, 1300);
+  }
+  reActiveRaceBtn() {
+    this.raceBtnDOM.style.pointerEvents = 'auto';
+    this.raceBtnDOM.classList.remove('disabled');
   }
   getAnyInRace(): boolean {
     return this.carsArr.some((e) => e.inRace);

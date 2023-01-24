@@ -10,6 +10,7 @@ export class Car extends Frame {
   parent: Garage;
   startBtnDOM!: HTMLElement;
   toStartBtnDOM!: HTMLElement;
+  deleteBtnDOM!: HTMLElement;
   winnerDOM!: HTMLElement;
   carImgDOM!: HTMLElement;
   selectDOM!: HTMLElement;
@@ -52,6 +53,7 @@ export class Car extends Frame {
     this.toStartBtnDOM = this.carDOM.querySelector('.car__info__to-start')!;
     this.winnerDOM = this.carDOM.querySelector('.car__winner')!;
     this.selectDOM = this.carDOM.querySelector('.car__info__select')!;
+    this.deleteBtnDOM = this.carDOM.querySelector('.car__info__delete')!;
   }
   addEventHandler() {
     this.startBtnDOM.addEventListener('click', () => {
@@ -65,6 +67,10 @@ export class Car extends Frame {
       this.selectDOM.classList.add('isActive');
       this.parent.currentCar = this;
       this.parent.renderCurrentCar();
+    });
+    this.deleteBtnDOM.addEventListener('click', () => {
+      this.parent.currentCar = this;
+      this.parent.deleteCarHandler();
     });
   }
   blockButtons() {
@@ -130,6 +136,9 @@ export class Car extends Frame {
     this.startBtnDOM.classList.remove('isBlocked');
     this.startBtnDOM.classList.remove('disabled-color');
     this.unBlockButtons();
+    if (!this.parent.getAnyInRace()) {
+      this.parent.reActiveRaceBtn();
+    }
   }
   showWinner() {
     if (this.isWinnerShow) {
@@ -165,8 +174,9 @@ function getHTML(car: carType) {
       <p class="car__winner">Winner is ${car.name}</p>
       <div class="car__info">
         <i class="fa-solid fa-circle-check car__info__select"></i>
-        <i class="fa-solid fa-play car__info__start"></i>
-        <i class="fa-solid fa-backward-step car__info__to-start"></i>
+        <i class="fa-solid fa-circle-xmark car__info__delete"></i>
+        <i class="fa-solid fa-circle-arrow-right car__info__start"></i>
+        <i class="fa-solid fa-circle-arrow-left car__info__to-start"></i>
         <span class="car__info__model">${car.name}</span>
       </div>
       <div class="car__race">
