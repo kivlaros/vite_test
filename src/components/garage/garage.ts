@@ -127,7 +127,7 @@ export class Garage extends Frame {
     if (data.some((e) => e.id == Number(this.currentCar?.car.id))) {
       await loader.load(Methods.DELETE, `/winners/${this.currentCar?.car.id}`, null);
     }
-    this.asyncHandler();
+    await this.asyncHandler();
   }
   async add100BtnHandler() {
     getRandomCarsArr(100).forEach(async (e, i) => {

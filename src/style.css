@@ -121,3 +121,8 @@ p{
 .app__page>div:hover{
   color: #646464;
 }
+
+.hide-page{
+  opacity: 0;
+  z-index: -20;
+}

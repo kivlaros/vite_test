@@ -6,6 +6,7 @@
   margin-top: 15px;
   padding-top: 15px;
   border-top: 2px solid rgb(88, 88, 88);
+  position: relative;
 }
 .garge__pages__list{
   display: flex;

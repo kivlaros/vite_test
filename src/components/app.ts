@@ -26,12 +26,12 @@ export class App extends Frame {
   }
   addEventHandler() {
     this.raceDOM.addEventListener('click', () => {
-      this.garageDOM.style.display = 'flex';
-      this.winnersTableDOM.style.display = 'none';
+      this.garageDOM.classList.remove('hide-page');
+      this.winnersTableDOM.classList.add('hide-page');
     });
     this.winnerDOM.addEventListener('click', () => {
-      this.garageDOM.style.display = 'none';
-      this.winnersTableDOM.style.display = 'flex';
+      this.garageDOM.classList.add('hide-page');
+      this.winnersTableDOM.classList.remove('hide-page');
     });
   }
 }
@@ -43,7 +43,7 @@ function getHTML() {
       <div class="app__page__winners">Winners</div>
     </div>
     <div class="cover" id="cover"></div>
-    <section class="winners" id="winners"></section>
+    <section class="winners hide-page" id="winners"></section>
     <section class="garage" id="garage"></section>
   `;
 }

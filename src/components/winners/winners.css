@@ -1,7 +1,9 @@
 .winners{
-  display: none;
+  display: flex;
   justify-content: center;
   color: rgb(212, 212, 212);
+  position: absolute;
+  top: 80px;
 }
 .winner-container>h3{
   width: max-content;
