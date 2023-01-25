@@ -11,7 +11,7 @@ export class Winners extends Frame {
   timeBtnDOM!: HTMLElement;
   winnerOptions: WinnerOpitons = {
     _page: '1',
-    _limit: '7',
+    _limit: '10',
     _order: 'ASC',
     _sort: 'time',
   };
@@ -74,7 +74,7 @@ export class Winners extends Frame {
     const count = data.length;
     const countDOM = document.querySelector('.total-count-winners')! as HTMLElement;
     countDOM.innerText = `Total count: ${count.toString()}`;
-    const pagesCount = Math.ceil(data.length / 7);
+    const pagesCount = Math.ceil(data.length / Number(this.winnerOptions._limit));
     for (let i = 0; i < pagesCount; i++) {
       this.pagesDOM.insertAdjacentHTML('beforeend', `<li>${i + 1}</li>`);
     }
@@ -84,9 +84,9 @@ export class Winners extends Frame {
     await loader.load(Methods.GET, '/winners', this.winnerOptions, (data) => this.renderWinnersList(data as WinnerType[]));
   }
   async renderWinnersList(data: WinnerType[]) {
-    data.forEach(async (e) => {
+    data.forEach(async (e, i) => {
       const car: carType = await loader.getData(Methods.GET, `/garage/${e.id}`, null);
-      this.winnersDOM.insertAdjacentHTML('beforeend', getLiHTML(e, car));
+      this.winnersDOM.insertAdjacentHTML('beforeend', getLiHTML(e, car, i));
     });
   }
   coloredCurrentPage() {
@@ -115,6 +115,7 @@ function getHTML() {
 function getHeadHTML() {
   return `
     <li class="winners__item">
+        <p class="winners__item__place">place</p>
         <p class="winners__item__id sort-id">id <i class="fa-solid fa-caret-down"></i></p>
         <p class="winners__item__car">car</p>
         <p class="winners__item__model">model</i></p>
@@ -124,9 +125,10 @@ function getHeadHTML() {
   `;
 }
 
-function getLiHTML(li: WinnerType, car: carType) {
+function getLiHTML(li: WinnerType, car: carType, i: number) {
   return `
     <li class="winners__item">
+        <p class="winners__item__place">${i + 1}</p>
         <p class="winners__item__id">${li.id}</p>
         <p class="winners__item__car" style="color:${car.color}"><i class="fa-solid fa-car-side"></i></p>
         <p class="winners__item__model">${car.name}</p>

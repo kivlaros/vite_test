@@ -128,6 +128,8 @@ export class Garage extends Frame {
       await loader.load(Methods.DELETE, `/winners/${this.currentCar?.car.id}`, null);
     }
     await this.asyncHandler();
+    this.app.winners.getWinnersPages();
+    this.app.winners.renderWinnersPage();
   }
   async add100BtnHandler() {
     getRandomCarsArr(100).forEach(async (e, i) => {
