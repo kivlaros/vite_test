@@ -17,7 +17,7 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: rgb(100, 108, 255);
   text-decoration: inherit;
 }
 a:hover {
@@ -27,9 +27,9 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  justify-content: center;
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -37,61 +37,92 @@ h1 {
   line-height: 1.1;
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
+li{
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+p{
+  padding: 0;
+  margin: 0;
 }
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #3178c6aa);
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+.cover{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  background-color: rgba(0, 0, 0,0.5);
+  display: none;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.isBlocked{
+  pointer-events: none;
+  cursor: wait !important;
+}
+
+.btn-style{
+  height: 30px;
+  padding: 0 20px;
+  background-color: rgb(69, 74, 90);
+  color: rgb(206, 206, 206);
+  border: 1px solid rgb(168, 168, 168);
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+.btn-style:hover{
+  background-color: rgb(53, 53, 53);
+}
+
+.disabled{
+  background-color: #242424;
+  color: #a35f5f;
+  font-weight: bold;
+  pointer-events: none !important;
+}
+.disabled-color{
+  color: #5fa39d !important;
+}
+#app{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 1400px;
+}
+
+.app__page{
+  display: flex;
+  margin-top: 20px;
+  font-size: 40px;
+  font-weight: bold;
+}
+.app__page__race{
+  border-right: 2px solid rgb(99, 99, 99);
+}
+
+.app__page>div{
+  padding: 10px 30px;
+  cursor: pointer;
+}
+
+.app__page>div:hover{
+  color: #646464;
+}
+
+.hide-page{
+  opacity: 0;
+  z-index: -20;
 }

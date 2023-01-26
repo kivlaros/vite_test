@@ -1,0 +1,77 @@
+.garage{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 95%;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 2px solid rgb(88, 88, 88);
+  position: relative;
+}
+.garge__pages__list{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.garge__pages__list>li{
+  cursor: pointer;
+  color: #7c7c7c;
+}
+.garage__cars{
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.garage__cars__list{
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
+}
+
+.garage__form-container{
+  display: none;
+  position: absolute;
+  place-items: center;
+  z-index: 100;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px;
+}
+.preload{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 30px;
+}
+
+.total-count{
+  font-size: 25px;
+  color: #7c7c7c !important;
+  font-weight: bold;
+}
+
+.garage__race-btn{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.garage__add100{
+  width: 150px;
+}
+.add100-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.current-car{
+  color: #7c7c7c;
+  font-size: 20px;
+}
